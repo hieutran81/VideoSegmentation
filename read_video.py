@@ -14,7 +14,7 @@ def read_video(video_name):
             # print(frame.shape)
             count = count +1
             list_frames.append(frame)
-            if count >= 10000:
+            if count >= 1000:
                 break
             #break
             # print("hieuvodoi")

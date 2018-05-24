@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 def color_hist():
     # img = list_frames[0]
     #hist, bins = np.histogram(img.ravel(), 256, [0, 256])
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    # gray = cv2.cvtColor(img, cv2.COLOR_BGR2H)
     # print(gray)
     # print(gray.shape)
     #hist = cv2.calcHist([img], [0], None, [256], [0, 256])
@@ -15,10 +15,13 @@ def color_hist():
     # print(hist.shape)
     list_hist = []
     for frame in list_frames:
-        hist = cv2.calcHist([frame], [0], None, [256], [0, 256])
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # print(gray.shape)
+        hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
+        print(hist.shape)
         list_hist.append(hist)
-    #plt.hist(img.ravel(), 16, [0, 256])
-    #plt.show()
+        # plt.hist(gray.ravel(), 256, [0, 256])
+        # plt.show()
     return list_hist
 
 def hist_difference():
@@ -35,6 +38,5 @@ def get_video():
     return list_frames
 
 list_frames =  read_video("video/run_now.avi")
-
 list_hist = color_hist()
 # hist_difference()
