@@ -16,23 +16,38 @@ def color_hist():
     list_hist = []
     for frame in list_frames:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        n_pixel = frame.shape[0] * frame.shape[1]
         # print(gray.shape)
         hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
-        print(hist.shape)
+        # print(hist)
+        hist = hist * (1.0/n_pixel)
+        # print(hist)
+        # print(hist.shape)
+        # cv2.imwrite("video/image0.jpg", frame)
         list_hist.append(hist)
-        # plt.hist(gray.ravel(), 256, [0, 256])
+        # fig = plt.figure()
+        # plt.hist(frame.ravel(), 256, [0, 256], color='blue')
+        # fig.savefig("video/histogram.png")
         # plt.show()
     return list_hist
 
 def hist_difference():
     list_diff = []
+    accumulate_sum = []
     for i in range(len(list_hist) - 1):
         x = np.sum(np.abs(np.subtract(list_hist[i+1],list_hist[i])))
         list_diff.append(x)
+        if (i==0):
+            accumulate_sum.append(x)
+        else:
+            accumulate_sum.append(accumulate_sum[-1] + x)
         # print(x)
+    # print(accumulate_sum)
+    fig = plt.figure()
     plt.plot(list_diff)
     plt.show()
-    return list_diff
+    fig.savefig("video/histogram.png")
+    return list_diff, accumulate_sum
 
 def get_video():
     return list_frames
