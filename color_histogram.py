@@ -18,7 +18,7 @@ def color_hist():
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         n_pixel = frame.shape[0] * frame.shape[1]
         # print(gray.shape)
-        hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
+        hist = cv2.calcHist([gray], [0], None, [16], [0, 256])
         # print(hist)
         hist = hist * (1.0/n_pixel)
         # print(hist)
